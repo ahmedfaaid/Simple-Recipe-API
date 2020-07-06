@@ -15,7 +15,7 @@ Node.js and MongoDB are required for this project to run. To install Node.js, do
 First clone this repository by running:
 
 ```bash
-git clone ...
+git clone https://github.com/ahmedfaaid/Simple-Recipe-API.git
 ```
 
 Then install all the necessary dependencies by running:
