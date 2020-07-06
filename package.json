@@ -1,0 +1,21 @@
+{
+  "name": "recipe-api",
+  "version": "0.1.0",
+  "description": "GraphQL api for mock recipe app",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ahmed Alhassan",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-express": "^2.15.1",
+    "express": "^4.17.1",
+    "graphql": "^15.2.0",
+    "mongoose": "^5.9.21"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
