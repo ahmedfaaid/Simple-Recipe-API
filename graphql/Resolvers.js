@@ -1,14 +1,17 @@
-const RecipeModel = require('../models/recipe');
+const RecipeController = require('../controllers/recipe');
+const ImageController = require('../controllers/image');
 
 const resolvers = {
   Query: {
-    getRecipes: () => RecipeModel.getRecipes(),
-    getRecipe: (_, { id }) => RecipeModel.getRecipe(id),
+    getRecipes: () => RecipeController.getRecipes(),
+    getRecipe: (_, { id }) => RecipeController.getRecipe(id),
   },
   Mutation: {
-    createRecipe: (_, { recipe }) => RecipeModel.createRecipe(recipe),
-    deleteRecipe: (_, { id }) => RecipeModel.deleteRecipe(id),
-    updateRecipe: (_, { id, recipe}) => RecipeModel.updateRecipe(id, recipe),
+    createRecipe: (_, { recipe }) => RecipeController.createRecipe(recipe),
+    deleteRecipe: (_, { id }) => RecipeController.deleteRecipe(id),
+    updateRecipe: (_, { id, recipe }) =>
+      RecipeController.updateRecipe(id, recipe),
+    uploadImage: (_, { image }) => ImageController.uploadImage(image),
   },
 };
 
