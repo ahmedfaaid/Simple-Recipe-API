@@ -36,6 +36,7 @@ const typeDefs = gql`
     description: String!
     category: String!
     ingredients: String!
+    imageRef: ID!
   }
 
   input UpdateRecipeInput {
