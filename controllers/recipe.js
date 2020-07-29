@@ -3,7 +3,10 @@ const RecipeModel = require('../models/recipe');
 module.exports = {
   getRecipes: async () => {
     try {
-      return await RecipeModel.find().sort({ _id: -1 }).exec();
+      return await RecipeModel.find()
+        .populate('image')
+        .sort({ _id: -1 })
+        .exec();
     } catch (error) {
       console.log(error);
     }

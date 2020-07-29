@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { createWriteStream, mkdir } = require('fs');
 
 const storeUpload = async ({ stream, filename, mimetype }) => {
-  const _id = mongoose.ObjectId;
+  const _id = mongoose.Types.ObjectId();
   const path = `images/${_id}-${filename}`;
   return new Promise((resolve, reject) =>
     stream
