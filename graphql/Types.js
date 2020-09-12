@@ -8,6 +8,14 @@ const typeDefs = gql`
     description: String!
     category: String!
     ingredients: String!
+    imageRef: ID!
+  }
+
+  type Image {
+    _id: ID!
+    filename: String!
+    mimetype: String!
+    path: String!
   }
 
   type Query {
@@ -19,6 +27,7 @@ const typeDefs = gql`
     createRecipe(recipe: RecipeInput!): Recipe!
     deleteRecipe(id: String!): Recipe
     updateRecipe(id: String!, recipe: UpdateRecipeInput!): Recipe
+    uploadImage(image: Upload!): Image
   }
 
   input RecipeInput {
@@ -27,6 +36,7 @@ const typeDefs = gql`
     description: String!
     category: String!
     ingredients: String!
+    imageRef: ID!
   }
 
   input UpdateRecipeInput {
