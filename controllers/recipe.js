@@ -1,4 +1,6 @@
 const RecipeModel = require('../models/recipe');
+const ImageModel = require('../models/image');
+const { processUpload } = require('../utils');
 
 module.exports = {
   getRecipes: async () => {
@@ -18,9 +20,13 @@ module.exports = {
       console.log(error);
     }
   },
-  createRecipe: async recipe => {
+  createRecipe: async (recipe, image) => {
     try {
-      return await RecipeModel(recipe).save();
+      const storedImage = await processUpload(image);
+
+      const recipeImage = await ImageModel(storedImage).save();
+
+      return await RecipeModel({ ...recipe, image: storedImage._id }).save();
     } catch (error) {
       console.log(error);
     }
@@ -50,5 +56,5 @@ module.exports = {
     } catch (error) {
       console.log(error);
     }
-  },
+  }
 };
