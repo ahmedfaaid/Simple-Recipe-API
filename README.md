@@ -43,7 +43,8 @@ mutation {
       description: "Delicious meal"
       category: "Main dish"
       ingredients: "Many ingredients..."
-    }
+    },
+    image: {...}
   ) {
     _id
     name
@@ -51,7 +52,36 @@ mutation {
     description
     category
     ingredients
+    image {
+      _id
+      filename
+      path
+      mimetype
+    }
   }
+}
+```
+
+The best way to run the createRecipe mutation is either using [Apollo Client](https://www.apollographql.com/docs/react/) and [Apollo Upload Client](https://github.com/jaydenseric/apollo-upload-client#readme) or using [Postman](https://www.postman.com/)/[Insomnia](https://insomnia.rest/) with the example below
+
+![create recipe](createRecipe.png)
+
+Operations json should look like:
+
+```json
+{
+  "query": "mutation CreateRecipe($recipe: RecipeInput!, $image: Upload!) { createRecipe(recipe: $recipe, image: $image) { _id name cuisine description category ingredients image { _id filename path mimetype } } }",
+  "variables": {
+    "recipe": {
+      "name": "Recipe name ...",
+      "cuisine": "Origin ...",
+      "description": "Recipe description ...",
+      "category": "Category ...",
+      "ingredients": "Some ingredients"
+    },
+    "image": null
+  },
+  "operationName": "CreateRecipe"
 }
 ```
 
@@ -71,9 +101,7 @@ Query one recipe
 
 ```graphql
 query {
-  getRecipe(
-    id: "..."
-  ) {
+  getRecipe(id: "...") {
     _id
     name
     ingredients
@@ -85,9 +113,9 @@ Other graphql operations available in the schema document.
 
 ## Built With
 
-* [Apollo Server Express](https://www.apollographql.com/docs/apollo-server/integrations/middleware/) - GraphQL server
-* [Mongoose](https://mongoosejs.com/) - ODM Library
-* [MongoDB](https://www.mongodb.com/) - Used to generate RSS Feeds
+- [Apollo Server Express](https://www.apollographql.com/docs/apollo-server/integrations/middleware/) - GraphQL server
+- [Mongoose](https://mongoosejs.com/) - ODM Library
+- [MongoDB](https://www.mongodb.com/) - No-SQL Database
 
 ## License
 
