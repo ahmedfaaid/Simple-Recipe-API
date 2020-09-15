@@ -6,7 +6,7 @@ const storeUpload = async ({ stream, filename, mimetype }) => {
   const path = `images/${_id}-${filename}`;
   return new Promise((resolve, reject) =>
     stream
-      .pipe(createWriteStream(path))
+      .pipe(createWriteStream(`public/${path}`))
       .on('finish', () => resolve({ _id, path, filename, mimetype }))
       .on('error', reject)
   );

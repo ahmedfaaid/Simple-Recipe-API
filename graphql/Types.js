@@ -8,7 +8,7 @@ const typeDefs = gql`
     description: String!
     category: String!
     ingredients: String!
-    imageRef: ID!
+    image: Image
   }
 
   type Image {
@@ -24,7 +24,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createRecipe(recipe: RecipeInput!): Recipe!
+    createRecipe(recipe: RecipeInput!, image: Upload!): Recipe!
     deleteRecipe(id: String!): Recipe
     updateRecipe(id: String!, recipe: UpdateRecipeInput!): Recipe
     uploadImage(image: Upload!): Image
@@ -36,7 +36,6 @@ const typeDefs = gql`
     description: String!
     category: String!
     ingredients: String!
-    imageRef: ID!
   }
 
   input UpdateRecipeInput {

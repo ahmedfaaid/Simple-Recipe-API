@@ -6,7 +6,7 @@ const recipeSchema = new mongoose.Schema({
   description: String,
   category: String,
   ingredients: String,
-  imageRef: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
+  image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' }
 });
 
 module.exports = mongoose.model('Recipe', recipeSchema);
