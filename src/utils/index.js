@@ -11,7 +11,7 @@ exports.handleUpload = async upload => {
   console.log('createReadStream');
   const stream = createReadStream();
   console.log('createWriteStream');
-  const out = await createWriteStream(join(__dirname, `../public/${path}`));
+  const out = await createWriteStream(join(__dirname, `../../public/${path}`));
 
   await stream.pipe(out);
   await finished(out);
