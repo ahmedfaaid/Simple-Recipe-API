@@ -22,11 +22,11 @@ module.exports = {
   },
   createRecipe: async (recipe, image) => {
     try {
-      const storedImage = await processUpload(image);
+      // const storedImage = await processUpload(image);
 
-      const recipeImage = await ImageModel(storedImage).save();
+      // const recipeImage = await ImageModel(storedImage).save();
 
-      return await RecipeModel({ ...recipe, image: storedImage._id }).save();
+      return await RecipeModel({ ...recipe }).save();
     } catch (error) {
       console.log(error);
     }

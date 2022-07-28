@@ -7,8 +7,7 @@ const resolvers = {
     getRecipe: (_, { id }) => RecipeController.getRecipe(id)
   },
   Mutation: {
-    createRecipe: (_, { recipe, image }) =>
-      RecipeController.createRecipe(recipe, image),
+    createRecipe: (_, { recipe }) => RecipeController.createRecipe(recipe),
     deleteRecipe: (_, { id }) => RecipeController.deleteRecipe(id),
     updateRecipe: (_, { id, recipe }) =>
       RecipeController.updateRecipe(id, recipe),
