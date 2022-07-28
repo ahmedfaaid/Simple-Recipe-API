@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const {
+  ApolloServerPluginLandingPageGraphQLPlayground
+} = require('apollo-server-core');
 const mongoose = require('mongoose').set('debug', true);
 const cors = require('cors');
 
@@ -21,7 +24,8 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground]
   });
 
   await server.start();
