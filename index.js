@@ -7,24 +7,30 @@ const cors = require('cors');
 const typeDefs = require('./graphql/Types');
 const resolvers = require('./graphql/Resolvers');
 
-const app = express();
-const port = process.env.PORT || 3020;
+const startServer = async () => {
+  const app = express();
+  const port = process.env.PORT || 3020;
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
+  app.use(cors());
+  app.use(express.static('public'));
 
-app.use(cors());
-app.use(express.static('public'));
+  await mongoose.connect('mongodb://localhost:27017/recipe-api', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
-mongoose.connect('mongodb://localhost:27017/recipe-api', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers
+  });
 
-server.applyMiddleware({ app });
+  await server.start();
 
-app.listen(port, () =>
-  console.log(`Server ready http://localhost:${port}${server.graphqlPath}`)
-);
+  server.applyMiddleware({ app });
+
+  app.listen(port, () =>
+    console.log(`Server ready http://localhost:${port}${server.graphqlPath}`)
+  );
+};
+
+startServer().catch(err => console.error(err));
