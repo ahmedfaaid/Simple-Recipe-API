@@ -4,6 +4,7 @@ const { ApolloServer } = require('apollo-server-express');
 const {
   ApolloServerPluginLandingPageGraphQLPlayground
 } = require('apollo-server-core');
+const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
 const mongoose = require('mongoose').set('debug', true);
 const cors = require('cors');
 
@@ -25,10 +26,13 @@ const startServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground]
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    csrfPrevention: true
   });
 
   await server.start();
+
+  app.use(graphqlUploadExpress());
 
   server.applyMiddleware({ app });
 

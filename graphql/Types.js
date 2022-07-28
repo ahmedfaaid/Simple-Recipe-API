@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar Upload
+
   type Recipe {
     _id: ID!
     name: String!
@@ -8,7 +10,7 @@ const typeDefs = gql`
     description: String!
     category: String!
     ingredients: String!
-    # image: Image
+    image: Image
   }
 
   type Image {
@@ -16,6 +18,7 @@ const typeDefs = gql`
     filename: String!
     mimetype: String!
     path: String!
+    encoding: String!
   }
 
   type Query {
@@ -24,10 +27,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createRecipe(recipe: RecipeInput!): Recipe!
+    createRecipe(recipe: RecipeInput!, image: Upload): Recipe!
     deleteRecipe(id: String!): Recipe
     updateRecipe(id: String!, recipe: UpdateRecipeInput!): Recipe
-    # uploadImage(image: Upload!): Image
+    uploadImage(image: Upload!): Image!
   }
 
   input RecipeInput {

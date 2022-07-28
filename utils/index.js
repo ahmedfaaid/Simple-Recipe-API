@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
 const { createWriteStream, mkdir } = require('fs');
+const { finished } = require('stream/promises');
+const { join } = require('path');
 
-const storeUpload = async ({ stream, filename, mimetype }) => {
+exports.handleUpload = async upload => {
+  const { createReadStream, filename, mimetype, encoding } = await upload;
   const _id = mongoose.Types.ObjectId();
   const path = `images/${_id}-${filename}`;
-  return new Promise((resolve, reject) =>
-    stream
-      .pipe(createWriteStream(`public/${path}`))
-      .on('finish', () => resolve({ _id, path, filename, mimetype }))
-      .on('error', reject)
-  );
-};
 
-exports.processUpload = async upload => {
-  const { createReadStream, filename, mimetype } = await upload;
+  console.log('createReadStream');
   const stream = createReadStream();
-  const file = await storeUpload({ stream, filename, mimetype });
-  return file;
+  console.log('createWriteStream');
+  const out = await createWriteStream(join(__dirname, `../public/${path}`));
+
+  await stream.pipe(out);
+  await finished(out);
+
+  return { _id, path, filename, mimetype, encoding };
 };
