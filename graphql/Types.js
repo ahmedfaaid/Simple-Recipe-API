@@ -27,7 +27,7 @@ const typeDefs = gql`
     createRecipe(recipe: RecipeInput!): Recipe!
     deleteRecipe(id: String!): Recipe
     updateRecipe(id: String!, recipe: UpdateRecipeInput!): Recipe
-    uploadImage(image: Upload!): Image
+    # uploadImage(image: Upload!): Image
   }
 
   input RecipeInput {
