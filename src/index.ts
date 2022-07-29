@@ -1,15 +1,14 @@
 require('dotenv').config();
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const {
-  ApolloServerPluginLandingPageGraphQLPlayground
-} = require('apollo-server-core');
-const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
-const mongoose = require('mongoose').set('debug', true);
-const cors = require('cors');
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
+import { graphqlUploadExpress } from 'graphql-upload';
+import mongoose from 'mongoose';
+import cors from 'cors';
 
-const typeDefs = require('./graphql/Types');
-const resolvers = require('./graphql/Resolvers');
+import typeDefs from './graphql/Types';
+import resolvers from './graphql/Resolvers';
+mongoose.set('debug', true);
 
 const startServer = async () => {
   const app = express();
@@ -18,10 +17,7 @@ const startServer = async () => {
   app.use(cors());
   app.use(express.static('public'));
 
-  await mongoose.connect('mongodb://localhost:27017/recipe-api', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+  await mongoose.connect('mongodb://localhost:27017/recipe-api');
 
   const server = new ApolloServer({
     typeDefs,

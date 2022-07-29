@@ -3,3 +3,4 @@ node_modules
 public/images
 db
 .env
+.DS_STORE
