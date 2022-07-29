@@ -1,8 +1,10 @@
-const RecipeModel = require('../models/recipe');
-const ImageModel = require('../models/image');
-const { handleUpload } = require('../utils');
+import mongoose from 'mongoose';
+import RecipeModel from '../models/recipe';
+import ImageModel from '../models/image';
+import { handleUpload } from '../utils';
+import { RecipeInput } from '../types';
 
-module.exports = {
+const recipeController = {
   getRecipes: async () => {
     try {
       return await RecipeModel.find()
@@ -11,27 +13,34 @@ module.exports = {
         .exec();
     } catch (error) {
       console.log(error);
+      return;
     }
   },
-  getRecipe: async id => {
+  getRecipe: async (id: mongoose.Types.ObjectId) => {
     try {
       return RecipeModel.findById(id).exec();
     } catch (error) {
       console.log(error);
+      return;
     }
   },
-  createRecipe: async (recipe, image) => {
+  createRecipe: async (recipe: RecipeInput, image: any) => {
     try {
       const storedImage = await handleUpload(image);
 
-      const recipeImage = await ImageModel(storedImage).save();
+      const recipeImage = new ImageModel(storedImage);
+      const newRecipe = new RecipeModel({ ...recipe, image: storedImage._id });
 
-      return await RecipeModel({ ...recipe, image: storedImage._id }).save();
+      await recipeImage.save();
+      await newRecipe.save();
+
+      return newRecipe;
     } catch (error) {
       console.log(error);
+      return;
     }
   },
-  deleteRecipe: async id => {
+  deleteRecipe: async (id: mongoose.Types.ObjectId) => {
     try {
       const recipe = await RecipeModel.findById(id).exec();
 
@@ -40,9 +49,10 @@ module.exports = {
       return recipe;
     } catch (error) {
       console.log(error);
+      return;
     }
   },
-  updateRecipe: async (id, recipe) => {
+  updateRecipe: async (id: mongoose.Types.ObjectId, recipe: RecipeInput) => {
     try {
       const updatedRecipe = await RecipeModel.findByIdAndUpdate(
         id,
@@ -55,6 +65,9 @@ module.exports = {
       return updatedRecipe;
     } catch (error) {
       console.log(error);
+      return;
     }
   }
 };
+
+export default recipeController;
