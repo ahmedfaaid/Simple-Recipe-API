@@ -4,3 +4,4 @@ public/images
 db
 .env
 .DS_STORE
+.DS_Store
